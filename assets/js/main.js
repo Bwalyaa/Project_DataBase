@@ -1001,15 +1001,73 @@ const movies = [
     ]
 ];
 
-let sortMovies = [8.2, 8.3, 9.2, 8.7, 8.6, 8.5, 9.0, 8.9, 8.8, 8.4, 9.3]
-sortMovies.sort((a, b) => b - a);
-console.log(sortMovies);
 
-//============================================
 
-function filterMoviesByName(name) {
-    const filteredMovies = movies.filter(movie => movie[0].toLowerCase().includes(name.toLowerCase()));
-    return filteredMovies;
+const rateMeBtn = document.querySelector(".rate")
+const yearDownMeBtn = document.querySelector(".yearDownMe")
+const yearUpMeBtn = document.querySelector(".yearUpMe")
+const movieContainer = document.querySelector('.movieNameBox');
+
+
+
+
+
+
+
+
+
+
+
+function showMovies(data) {
+
+for (let i = 0; i < data.length; i++) {
+
+    const movieBox = document.createElement("div");
+    movieBox.className = "movie";
+
+    movieBox.innerHTML = `
+        <div class="movie-content">
+            <h2>${data[i][0]}</h2>
+            <p class="movie-year">${data[i][1]}</p>
+            <p class="movie-producer">${data[i][2]}</p>
+            <p class="movie-length">${data[i][3]}</p>
+            <p class="movie-genre-one">${data[i][4][0]}</p>
+            <p class="movie-genre-two">${data[i][4][1]}</p>
+            <p class="movie-genre-three">${data[i][4][2]}</p>
+            <p>${data[i][5]}</p>
+        </div>`;
+
+    movieContainer.appendChild(movieBox);
+}
 }
 
-//=============================================
+showMovies(movies)
+
+function rateMe() {
+    resetMovies()
+    let copiedMovies = [...movies]
+   let sortedMovies = copiedMovies.sort((a, b) => b[5] - a[5]);
+   showMovies(sortedMovies)
+}
+
+
+function yearDownMe() {
+    resetMovies()
+    let copiedMovies = [...movies]
+    let sortedDownMovies = copiedMovies.sort((a, b) => b[1] - a[1])
+    showMovies(sortedDownMovies)
+    console.log(sortedDownMovies);
+}
+
+function yearUpMe()  {
+    resetMovies()
+    let copiedMovies = [...movies]
+    let sortedUpMovies = copiedMovies.sort((a, b) => a[1] - b[1])
+    showMovies(sortedUpMovies)
+}
+
+let resetMovies = () => {
+    movieContainer.innerHTML = ""
+}
+
+
