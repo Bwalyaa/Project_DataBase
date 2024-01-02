@@ -1009,13 +1009,28 @@ const yearUpMeBtn = document.querySelector(".yearUpMe")
 const movieContainer = document.querySelector('.movieNameBox');
 
 
+let search = () => {
 
+    let input = document.querySelector("#input").value.toLowerCase();
 
+    let copiedMovies = [...movies];
 
+    let result = copiedMovies.filter((movie) => movie[0].toLowerCase().includes(input));
+    let yearResult = copiedMovies.filter((movie) => movie[1].toString().includes(input));
 
-
-
-
+    if (result.length > 0) {
+        resetMovies();
+        showMovies(result);
+    } else if (yearResult.length > 0) {
+        resetMovies();
+        showMovies(yearResult);
+    } else {
+        resetMovies();
+        movieContainer.innerHTML = `<p class="noResult">No result found</p>`;
+        console.log("No result found");
+    }
+    
+}
 
 
 function showMovies(data) {
